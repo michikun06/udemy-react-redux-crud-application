@@ -1,37 +1,36 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-// class App extends Component {
-//   render() {
-//     return (
-//       <React.Fragment>
-//         <label htmlFor="bar">bar</label>
-//         <input className="foo" onChange={() => { console.log('I am clicked') }} />
-//       </React.Fragment>
-//     )
-//   }
-// }
+const App = () => (<Counter />)
 
-const App = () => {
-  const profiles = [
-    { name: "Taro", age: 10 },
-    { name: "Hanako", age: 5 }
-  ]
+class Counter extends Component {
 
-  return (
-    <div>
-      {
-        profiles.map((profile, index) => {
-          return (
-            <User name={profile.name} age={profile.age} key={index} />
-          );
-        })
-      }
-    </div>
-  )
-}
+  // "constructor"は初期化処理の際に実行されるメソッド
+  constructor(props) {
+    super(props)
+    this.state = { count: 0 }
+  }
 
-const User = (props) => {
-  return <div>Hi!, I am {props.name}, and {props.age} years old.</div>
+  handlePlusButton = () => {
+    this.setState({ count: this.state.count + 1 })
+  }
+
+  handleMinusButton = () => {
+    if (this.state.count === 0) {
+      console.log('0以下は表示できません')
+      return
+    }
+    this.setState({ count: this.state.count - 1 })
+  }
+
+  render() {
+    return (
+      <React.Fragment>
+        <div>count: {this.state.count}</div>
+        <button onClick={this.handlePlusButton}>+1</button>
+        <button onClick={this.handleMinusButton}>-1</button>
+      </React.Fragment>
+    )
+  }
 }
 
 export default App;
